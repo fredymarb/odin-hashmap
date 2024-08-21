@@ -114,15 +114,29 @@ class HashMap
     @buckets = Array.new(INITIAL_SIZE)
     @size = 0
   end
+
+  # returns an array containing all the keys
+  def keys
+    keys_arr = []
+
+    @buckets.each do |node|
+      current = node
+
+      until current.nil?
+        keys_arr << current.key
+        current = current.next
+      end
+    end
+
+    keys_arr
+  end
 end
 
 my_hash = HashMap.new
 my_hash.set("name", "Fred")
 my_hash.set("age", "21")
 my_hash.set("region", "Accra")
+my_hash.set("age", "34")
 
-p my_hash.length
-p my_hash.get("name")
-my_hash.clear
-p my_hash.length
-p my_hash.get("name")
+p my_hash.keys
+p my_hash.get("age")
