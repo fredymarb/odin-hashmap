@@ -31,7 +31,7 @@ class HashMap
     end
 
     current = @buckets[index]
-    until current.next.nil?
+    until current.nil?
       # if key already exist, update it's value
       return current.value = value if current.key == key
 
