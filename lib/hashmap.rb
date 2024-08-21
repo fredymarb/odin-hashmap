@@ -53,6 +53,22 @@ class HashMap
 
     nil
   end
+
+  # returns true or false based on whether or not
+  # the key is in the hash map.
+  def has?(key)
+    index = hash(key)
+    raise IndexError if index.negative? || index >= @buckets.length
+
+    current = @buckets[index]
+    until current.nil?
+      return true if current.key == key
+
+      current = current.next
+    end
+
+    false
+  end
 end
 
 my_hash = HashMap.new
@@ -62,3 +78,7 @@ my_hash.set("region", "Accra")
 
 p my_hash.get("name")
 p my_hash.get("region")
+
+p my_hash.has?("name")
+p my_hash.has?("age")
+p my_hash.has?("movie")
