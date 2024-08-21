@@ -25,7 +25,10 @@ class HashMap
     raise IndexError if index.negative? || index >= @buckets.length
 
     new_node = Node.new(key, value)
-    return @buckets[index] = new_node if @buckets[index].nil?
+    if @buckets[index].nil?
+      @size += 1
+      return @buckets[index] = new_node
+    end
 
     current = @buckets[index]
     until current.next.nil?
@@ -36,6 +39,7 @@ class HashMap
     end
 
     current.next = new_node
+    @size += 1
   end
 
   # returns the value that is assigned to this key.
@@ -89,6 +93,7 @@ class HashMap
         else
           prev.next = current.next
         end
+        @size -= 1
         return current.value
       end
 
@@ -105,8 +110,6 @@ my_hash.set("name", "Fred")
 my_hash.set("age", "21")
 my_hash.set("region", "Accra")
 
-p my_hash.get("name")
-p my_hash.get("region")
-
-p my_hash.remove("name")
-p my_hash.get("name")
+p my_hash.length
+my_hash.remove("age")
+p my_hash.length
