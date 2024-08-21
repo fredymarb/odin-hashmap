@@ -136,15 +136,27 @@ class HashMap
     values_arr = []
 
     @buckets.each do |node|
-      current = node
-
-      until current.nil?
-        values_arr << current.value
-        current = current.next
+      until node.nil?
+        values_arr << node.value
+        node = node.next
       end
     end
 
     values_arr
+  end
+
+  # returns an array that contains each key, value pair.
+  def entries
+    entries_arr = []
+
+    @buckets.each do |node|
+      until node.nil?
+        entries_arr << [node.key, node.value]
+        node = node.next
+      end
+    end
+
+    entries_arr
   end
 end
 
@@ -154,5 +166,4 @@ my_hash.set("age", "21")
 my_hash.set("region", "Accra")
 my_hash.set("age", "34")
 
-p my_hash.keys
-p my_hash.values
+puts my_hash.entries
