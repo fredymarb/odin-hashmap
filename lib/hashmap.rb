@@ -103,6 +103,11 @@ class HashMap
 
     nil
   end
+
+  # returns the number of stored keys in the hash map
+  def length
+    @size
+  end
 end
 
 my_hash = HashMap.new
