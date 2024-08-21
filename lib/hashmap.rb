@@ -5,7 +5,8 @@ class HashMap
   LOAD_FACTOR = 0.75
 
   def initialize
-    @buckets = Array.new(INITIAL_SIZE)
+    @capacity = INITIAL_SIZE
+    @buckets = Array.new(@capacity)
     @size = 0
   end
 
@@ -42,6 +43,7 @@ class HashMap
 
     prev.next = new_node
     @size += 1
+    grow_table
   end
 
   # returns the value that is assigned to this key.
@@ -161,6 +163,22 @@ class HashMap
     entries_arr
   end
 
+  def grow_table
+    bandwidth = LOAD_FACTOR * @capacity
+    return unless @size >= bandwidth
+
+    temp_arr = entries
+    @capacity *= 2
+    @size = 0
+    @buckets = Array.new(@capacity)
+
+    temp_arr.each do |key_value_pair|
+      key = key_value_pair[0]
+      value = key_value_pair[1]
+      set(key, value)
+    end
+  end
+
   # outputs the hash map in a string format
   # for easy visualization
   def pretty_print
@@ -195,6 +213,6 @@ my_hash.set("kite", "pink")
 my_hash.set("lion", "golden")
 
 # puts my_hash.entries
-my_hash.remove("grape")
+# my_hash.remove("grape")
 my_hash.pretty_print
 puts my_hash.length
