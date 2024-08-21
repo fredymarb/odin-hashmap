@@ -130,6 +130,22 @@ class HashMap
 
     keys_arr
   end
+
+  # returns an array containing all the values
+  def values
+    values_arr = []
+
+    @buckets.each do |node|
+      current = node
+
+      until current.nil?
+        values_arr << current.value
+        current = current.next
+      end
+    end
+
+    values_arr
+  end
 end
 
 my_hash = HashMap.new
@@ -139,4 +155,4 @@ my_hash.set("region", "Accra")
 my_hash.set("age", "34")
 
 p my_hash.keys
-p my_hash.get("age")
+p my_hash.values
