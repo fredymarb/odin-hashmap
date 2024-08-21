@@ -69,6 +69,35 @@ class HashMap
 
     false
   end
+
+  # If the given key is in the hash map,
+  # it should remove the entry with that key and
+  # return the deleted entry’s value.
+  # If the key isn’t in the hash map,
+  # it should return nil.
+  def remove(key)
+    index = hash(key)
+    raise IndexError if index.negative? || index >= @buckets.length
+
+    current = @buckets[index]
+    prev = nil
+
+    until current.nil?
+      if current.key == key
+        if prev.nil?
+          @buckets[index] = current.next
+        else
+          prev.next = current.next
+        end
+        return current.value
+      end
+
+      prev = current
+      current = current.next
+    end
+
+    nil
+  end
 end
 
 my_hash = HashMap.new
@@ -79,6 +108,5 @@ my_hash.set("region", "Accra")
 p my_hash.get("name")
 p my_hash.get("region")
 
-p my_hash.has?("name")
-p my_hash.has?("age")
-p my_hash.has?("movie")
+p my_hash.remove("name")
+p my_hash.get("name")
