@@ -37,9 +37,28 @@ class HashMap
 
     current.next = new_node
   end
+
+  # returns the value that is assigned to this key.
+  # If key is not found, return nil
+  def get(key)
+    index = hash(key)
+    raise IndexError if index.negative? || index >= @buckets.length
+
+    current = @buckets[index]
+    until current.nil?
+      return current.value if current.key == key
+
+      current = current.next
+    end
+
+    nil
+  end
 end
 
 my_hash = HashMap.new
 my_hash.set("name", "Fred")
 my_hash.set("age", "21")
 my_hash.set("region", "Accra")
+
+p my_hash.get("name")
+p my_hash.get("region")
