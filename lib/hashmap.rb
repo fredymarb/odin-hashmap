@@ -108,6 +108,12 @@ class HashMap
   def length
     @size
   end
+
+  # removes all entries in the hash
+  def clear
+    @buckets = Array.new(INITIAL_SIZE)
+    @size = 0
+  end
 end
 
 my_hash = HashMap.new
@@ -116,5 +122,7 @@ my_hash.set("age", "21")
 my_hash.set("region", "Accra")
 
 p my_hash.length
-my_hash.remove("age")
+p my_hash.get("name")
+my_hash.clear
 p my_hash.length
+p my_hash.get("name")
